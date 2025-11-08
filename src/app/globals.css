@@ -3,6 +3,24 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Health-themed design tokens */
+  /* Primary palette (teal/blue-ish) - deep -> mid -> light */
+  --primary-1: #052b33; /* deep teal */
+  --primary-2: #0ea5a4; /* teal/cyan (accent) */
+  --primary-3: #7dd3fc; /* light sky */
+
+  /* Secondary palette (green) - deep -> mid -> light */
+  --secondary-1: #064e3b; /* deep emerald */
+  --secondary-2: #10b981; /* emerald */
+  --secondary-3: #bbf7d0; /* pale mint */
+
+  /* Panel translucency tint (use a darker teal-ish rgba for panels) */
+  --panel-bg-rgba: 5,43,51; /* matches deep teal (#052b33) */
+  --panel-bg: rgba(var(--panel-bg-rgba), 0.28);
+  --panel-border-rgba: 14,165,164; /* teal-ish */
+  --panel-border: rgba(var(--panel-border-rgba), 0.35);
+  --card-bg: #ffffff;
+  --on-primary: #ffffff;
 }
 
 @theme inline {
@@ -23,4 +41,26 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Utility classes that reference the design tokens above. Use these in JSX to keep colors centralized. */
+.bg-primary-gradient {
+  /* multiple stops from primary + secondary palettes for a healthcare-friendly gradient */
+  background: linear-gradient(135deg,
+    var(--primary-1) 0%,
+    var(--primary-2) 45%,
+    var(--secondary-2) 85%
+  );
+}
+.panel-translucent {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 1rem;
+  backdrop-filter: blur(6px);
+}
+.text-on-primary {
+  color: var(--on-primary) !important;
+}
+.card-bg {
+  background: var(--card-bg);
 }
