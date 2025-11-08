@@ -3,9 +3,9 @@ import Hero from "../components/Hero";
 import About from "../components/About";
 import Features from "../components/Features";
 import HowItWorks from "../components/HowItWorks";
-// import ScanSection from "../components/ScanSection";
+import ScanSection from "../components/ScanSection";
 import CTASection from "../components/CTASection";
-// import Footer from "../components/Footer";
+import Footer from "../components/Footer";
 
 export default function HomePage() {
   return (
@@ -14,9 +14,9 @@ export default function HomePage() {
       <About />
       <Features />
       <HowItWorks />
-      {/* <ScanSection /> */}
+      <ScanSection />
       <CTASection />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }

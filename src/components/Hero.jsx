@@ -16,17 +16,26 @@ export default function Hero() {
         <p className="text-lg md:text-xl mb-6 text-on-primary/80">Sistem Teleradiologi pertama dan satu-satunya di Indonesia yang Open Source! Dirancang untuk revolusi teleradiologi dengan teknologi canggih.</p>
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#scan" className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition">
+          <a
+            href="#scan"
+            className="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold shadow-md   transform transition-all duration-300 hover:scale-110 
+             hover:bg-white hover:text-blue-600 transition-all duration-300"
+          >
             Try Demo
           </a>
-          <a href="#about" className="border border-white px-6 py-3 rounded-full font-semibold text-white hover:bg-white hover:text-primary-600 transition">
+
+          <a
+            href="#about"
+            className="bg-transparent text-white px-6 py-3 rounded-full font-semibold shadow-md   transform transition-all duration-300 hover:scale-110 
+             hover:bg-white hover:text-blue-600 transition-all duration-300"
+          >
             Source Code
           </a>
         </div>
         {/* Hero Illustration */}
         <div className="flex justify-center mt-8">
           <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <Image src="/images/hero-placeholder.png" alt="Hero Illustration" fill className="object-contain drop-shadow-2xl" priority />
+            <Image src="/images/feature1.svg" alt="Hero Illustration" fill className="object-contain drop-shadow-2xl" priority />
           </div>
         </div>
       </div>
