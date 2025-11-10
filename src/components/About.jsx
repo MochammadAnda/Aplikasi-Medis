@@ -6,11 +6,11 @@ export default function About() {
   return (
     <section id="about" className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="panel-translucent flex flex-col md:flex-row items-center gap-12">
+        <div className="flex flex-col md:flex-row items-center gap-12">
           {/* Gambar ilustrasi */}
           <div className="flex-1 flex justify-center">
             <div className="relative w-72 h-72 md:w-96 md:h-96">
-              <Image src="/images/about-placeholder.png" alt="About MediScanX" fill className="object-contain" />
+              <Image src="/images/feature2.svg" alt="About MediScanX" fill className="object-contain" />
             </div>
           </div>
 
