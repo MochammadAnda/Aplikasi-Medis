@@ -6,7 +6,7 @@ export const metadata = {
   description: "Your first step to intelligent medical imaging",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-800">{children}</body>
