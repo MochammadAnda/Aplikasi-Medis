@@ -17,7 +17,7 @@ export default function CTASection() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-on-primary">M. Dzawin Nuha</h3>
+                <h3 className="text-lg font-semibold text-on-primary">dgDev</h3>
                 <div className="text-sm text-slate-200">Founder & Developer</div>
               </div>
 
