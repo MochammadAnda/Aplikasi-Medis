@@ -22,8 +22,15 @@ export default function Features() {
   ];
 
   return (
-    <section className="w-full py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white" id="features">
-      <div className="max-w-6xl mx-auto text-center px-6">
+    <section className="w-full py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-visible" id="features">
+      {/* Dekorasi blur background sama seperti Hero (tuned) */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-violet-600/30 rounded-full blur-2xl z-0 pointer-events-none"></div>
+      <div className="absolute bottom-8 right-8 w-80 h-80 bg-blue-700/30 rounded-full blur-[80px] z-0 pointer-events-none"></div>
+      {/* Blur effect for section border (top)
+      <div className="absolute left-0 right-0 -top-6 h-12 pointer-events-none z-10">
+        <div className="w-full h-full bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent backdrop-blur-md"></div>
+      </div> */}
+      <div className="max-w-6xl mx-auto text-center px-6 relative z-10">
         <h2 className="text-3xl font-bold text-white mb-10">Fitur Unggulan MediScanX</h2>
         <div className="relative bg-slate-800/30 border border-slate-700/60 rounded-2xl p-6 md:p-10 backdrop-blur-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

@@ -2,8 +2,8 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "MediScanX",
-  description: "Your first step to intelligent medical imaging",
+  title: "D-RadiographIQ",
+  description: "Decision Support System for Thorax Image Acceptance",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
