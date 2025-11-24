@@ -90,6 +90,11 @@ export default function ScanSection() {
   const data = await res.json();
   console.log("Hasil Multiple Flask:", data);
 
+  const blob = new Blob([data.csv], { type: "text/csv" });
+  const url = URL.createObjectURL(blob);
+  setCsvUrl(url);         // <-- ini yang dipakai untuk download
+  setMultiFiles(files);
+
   // TODO: tampilkan summary + CSV ke UI
 }
 
