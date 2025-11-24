@@ -124,27 +124,37 @@ export default function ScanSection() {
 
   async function uploadMultipleToFlask(files) {
     const formData = new FormData();
-    for (let f of files) {
-      formData.append("files", f);
-    }
+    files.forEach((f) => formData.append("files", f));
 
-    // Contoh error handling sederhana untuk multiple
     try {
       const res = await fetch("http://localhost:5001/predict-multiple", {
         method: "POST",
         body: formData,
       });
+
       const data = await res.json();
-      console.log("Hasil Multiple Flask:", data);
 
-      const blob = new Blob([data.csv], { type: "text/csv" });
-      const url = URL.createObjectURL(blob);
-      setCsvUrl(url); // <-- ini yang dipakai untuk download
-      setMultiFiles(files);
-
+      // --- Membuat link download Excel (.xlsx) ---
+      const excelBlob = base64ToBlob(
+        data.excel_base64,
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+      const excelUrl = URL.createObjectURL(excelBlob);
+      setCsvUrl(excelUrl);
     } catch (err) {
-      console.error("Error multiple:", err);
+      console.error(err);
     }
+  }
+
+  // Helper konversi base64 → Blob
+  function base64ToBlob(base64, type = "application/octet-stream") {
+    const binStr = atob(base64);
+    const len = binStr.length;
+    const arr = new Uint8Array(len);
+
+    for (let i = 0; i < len; i++) arr[i] = binStr.charCodeAt(i);
+
+    return new Blob([arr], { type });
   }
 
   function createCsv(list) {
@@ -240,14 +250,21 @@ export default function ScanSection() {
                   )}
                   {preview === "dicom" && (
                     <div className="w-64 h-64 flex items-center justify-center bg-slate-700 rounded-xl border border-blue-500">
-                      <span className="text-blue-400 font-bold">DICOM File</span>
+                      <span className="text-blue-400 font-bold">
+                        DICOM File
+                      </span>
                     </div>
                   )}
 
                   {/* --- TOMBOL RESET / UPLOAD ULANG DI SINI --- */}
                   <div className="flex items-center justify-between px-2">
-                    <p className="text-xs text-slate-500 font-mono truncate max-w-[200px]">{fileName}</p>
-                    <button onClick={handleReset} className="text-sm flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-full transition">
+                    <p className="text-xs text-slate-500 font-mono truncate max-w-[200px]">
+                      {fileName}
+                    </p>
+                    <button
+                      onClick={handleReset}
+                      className="text-sm flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-full transition"
+                    >
                       🔄 Reset / Upload Ulang
                     </button>
                   </div>
@@ -360,12 +377,13 @@ export default function ScanSection() {
                   {csvUrl && (
                     <a
                       href={csvUrl}
-                      download="upload-results.csv"
-                      className="px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm"
+                      download="hasil_klasifikasi.xlsx"
+                      className="mt-4 px-4 py-2 bg-green-600 rounded-md text-white"
                     >
-                      Download CSV
+                      Download Excel
                     </a>
                   )}
+
                   <button
                     className="px-3 py-2 bg-slate-700 text-slate-200 rounded-md text-sm hover:bg-slate-600"
                     onClick={() => {
