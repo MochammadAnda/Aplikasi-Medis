@@ -25,6 +25,20 @@ export default function ScanSection() {
     };
   }, [csvUrl]);
 
+  function handleReset() {
+    // Bersihkan state data
+    setPreview(null);
+    setFileName("");
+    setFileType("");
+    setSingleResult(null);
+    setIsLoading(false);
+
+    // PENTING: Reset value input file agar bisa upload file yang sama lagi
+    if (singleInputRef.current) {
+      singleInputRef.current.value = "";
+    }
+  }
+
   function handleSingleChange(e) {
     const file = e.target.files?.[0];
 
@@ -33,20 +47,16 @@ export default function ScanSection() {
     // Reset state sebelumnya
     setSingleResult(null);
     setFileName(file.name);
-    const type = file.type;
+    const type = file.type || "image/unknown";
     setFileType(type);
 
     // Preview awal (gambar asli sebelum diproses)
-    if (type.startsWith("image/")) {
-      // Buat FileReader baru untuk membaca file
-      const reader = new FileReader();
-      // Fungsi ini akan dipanggil setelah file selesai dibaca
-      reader.onload = (ev) => {
-        // Set hasil bacaan (data URL gambar) ke state 'preview'
-        setPreview(ev.target.result);
-      };
-      // Mulai membaca file sebagai data URL
-      reader.readAsDataURL(file);
+    if (type.startsWith("image/") || type === "image/unknown") {
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+
+      // Cleanup memori saat component unmount/ganti gambar
+      // (Opsional tapi good practice, tambahkan useEffect terpisah jika mau sempurna)
     } else if (type === "application/pdf") {
       setPreview("pdf");
     } else if (file.name.toLowerCase().endsWith(".dcm")) {
@@ -233,6 +243,14 @@ export default function ScanSection() {
                       <span className="text-blue-400 font-bold">DICOM File</span>
                     </div>
                   )}
+
+                  {/* --- TOMBOL RESET / UPLOAD ULANG DI SINI --- */}
+                  <div className="flex items-center justify-between px-2">
+                    <p className="text-xs text-slate-500 font-mono truncate max-w-[200px]">{fileName}</p>
+                    <button onClick={handleReset} className="text-sm flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-full transition">
+                      🔄 Reset / Upload Ulang
+                    </button>
+                  </div>
                 </div>
 
                 {/* Hasil Prediksi Utama (Kanan) */}
