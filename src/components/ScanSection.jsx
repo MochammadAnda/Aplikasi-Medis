@@ -33,20 +33,16 @@ export default function ScanSection() {
     // Reset state sebelumnya
     setSingleResult(null);
     setFileName(file.name);
-    const type = file.type;
+    const type = file.type || "image/unknown";
     setFileType(type);
 
     // Preview awal (gambar asli sebelum diproses)
-    if (type.startsWith("image/")) {
-      // Buat FileReader baru untuk membaca file
-      const reader = new FileReader();
-      // Fungsi ini akan dipanggil setelah file selesai dibaca
-      reader.onload = (ev) => {
-        // Set hasil bacaan (data URL gambar) ke state 'preview'
-        setPreview(ev.target.result);
-      };
-      // Mulai membaca file sebagai data URL
-      reader.readAsDataURL(file);
+    if (type.startsWith("image/") || type === "image/unknown") {
+      const objectUrl = URL.createObjectURL(file);
+      setPreview(objectUrl);
+
+      // Cleanup memori saat component unmount/ganti gambar
+      // (Opsional tapi good practice, tambahkan useEffect terpisah jika mau sempurna)
     } else if (type === "application/pdf") {
       setPreview("pdf");
     } else if (file.name.toLowerCase().endsWith(".dcm")) {
