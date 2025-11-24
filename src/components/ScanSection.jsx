@@ -38,8 +38,14 @@ export default function ScanSection() {
 
     // Preview awal (gambar asli sebelum diproses)
     if (type.startsWith("image/")) {
+      // Buat FileReader baru untuk membaca file
       const reader = new FileReader();
-      reader.onload = (ev) => setPreview(ev.target.result);
+      // Fungsi ini akan dipanggil setelah file selesai dibaca
+      reader.onload = (ev) => {
+        // Set hasil bacaan (data URL gambar) ke state 'preview'
+        setPreview(ev.target.result);
+      };
+      // Mulai membaca file sebagai data URL
       reader.readAsDataURL(file);
     } else if (type === "application/pdf") {
       setPreview("pdf");
@@ -220,6 +226,11 @@ export default function ScanSection() {
                   {preview === "pdf" && (
                     <div className="w-64 h-64 flex items-center justify-center bg-slate-700 rounded-xl border border-blue-500">
                       <span className="text-blue-400 font-bold">PDF File</span>
+                    </div>
+                  )}
+                  {preview === "dicom" && (
+                    <div className="w-64 h-64 flex items-center justify-center bg-slate-700 rounded-xl border border-blue-500">
+                      <span className="text-blue-400 font-bold">DICOM File</span>
                     </div>
                   )}
                 </div>
