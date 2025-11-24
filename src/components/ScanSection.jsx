@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import Button from "./Button";
 
 export default function ScanSection() {
   const singleInputRef = useRef(null);
@@ -78,12 +79,26 @@ export default function ScanSection() {
           <input ref={multiInputRef} type="file" multiple accept=".dcm,application/pdf,image/jpeg,image/jpg,image/png,image/gif" className="hidden" onChange={handleMultiChange} />
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition" onClick={() => singleInputRef.current?.click()}>
+            <Button
+              href="#"
+              variant="primary"
+              onClick={(e) => {
+                e.preventDefault();
+                singleInputRef.current?.click();
+              }}
+            >
               Single Upload
-            </button>
-            <button className="bg-primary-400 hover:bg-primary-500 text-white px-6 py-3 rounded-full font-semibold shadow-md transition" onClick={() => multiInputRef.current?.click()}>
+            </Button>
+            <Button
+              href="#"
+              variant="primary"
+              onClick={(e) => {
+                e.preventDefault();
+                multiInputRef.current?.click();
+              }}
+            >
               Multiple Upload
-            </button>
+            </Button>
           </div>
           {fileName && (
             <div className="w-full flex flex-col items-center gap-4 mt-4">
@@ -113,13 +128,15 @@ export default function ScanSection() {
                 <div className="text-on-primary/80">{multiFiles.length} file(s) ready</div>
                 <div className="flex items-center gap-2">
                   {csvUrl && (
-                    <a href={csvUrl} download="upload-results.csv" className="inline-flex items-center px-3 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm">
+                    <Button href={csvUrl} variant="primary" download="upload-results.csv" className="text-sm">
                       Download CSV
-                    </a>
+                    </Button>
                   )}
-                  <button
-                    className="inline-flex items-center px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700"
-                    onClick={() => {
+                  <Button
+                    href="#"
+                    variant="primary"
+                    onClick={(e) => {
+                      e.preventDefault();
                       setMultiFiles([]);
                       if (csvUrl) {
                         URL.revokeObjectURL(csvUrl);
@@ -127,9 +144,10 @@ export default function ScanSection() {
                       }
                       if (multiInputRef.current) multiInputRef.current.value = null;
                     }}
+                    className="text-sm"
                   >
                     Clear
-                  </button>
+                  </Button>
                 </div>
               </div>
 

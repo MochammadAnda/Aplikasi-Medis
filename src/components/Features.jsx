@@ -31,7 +31,7 @@ export default function Features() {
         <div className="w-full h-full bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent backdrop-blur-md"></div>
       </div> */}
       <div className="max-w-6xl mx-auto text-center px-6 relative z-10">
-        <h2 className="text-3xl font-bold text-white mb-10">Fitur Unggulan MediScanX</h2>
+        <h2 className="text-3xl font-bold text-white mb-10">Fitur Unggulan D-RadiographIQ</h2>
         <div className="relative bg-slate-800/30 border border-slate-700/60 rounded-2xl p-6 md:p-10 backdrop-blur-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
