@@ -21,11 +21,15 @@ export default function ScanSection() {
   }, [csvUrl]);
 
   function handleSingleChange(e) {
-    const file = e.target.files && e.target.files[0];
+    const file = e.target.files?.[0];
+   
     if (!file) return;
     setFileName(file.name);
     const type = file.type;
     setFileType(type);
+
+    uploadSingleToFlask(file);
+    
     // Preview for images
     if (type.startsWith("image/")) {
       const reader = new FileReader();
@@ -40,11 +44,30 @@ export default function ScanSection() {
     }
   }
 
+  async function uploadSingleToFlask(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await fetch("http://localhost:5001/predict", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await res.json();
+  console.log("Hasil Flask:", data);
+
+  // TODO: tampilkan hasil ke UI
+}
+
+
   function handleMultiChange(e) {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
     const list = files.map((f) => ({ name: f.name, type: f.type || "unknown", size: f.size }));
-    setMultiFiles(list);
+    setMultiFiles(files.map(f => ({ name: f.name, size: f.size, type: f.type })));
+
+  uploadMultipleToFlask(files); // ← kirim ke Flask backend
+
     // create CSV immediately (simulate successful upload)
     const csv = createCsv(list);
     if (csvUrl) URL.revokeObjectURL(csvUrl);
@@ -52,6 +75,24 @@ export default function ScanSection() {
     const url = URL.createObjectURL(blob);
     setCsvUrl(url);
   }
+
+  async function uploadMultipleToFlask(files) {
+  const formData = new FormData();
+  for (let f of files) {
+    formData.append("files", f);
+  }
+
+  const res = await fetch("http://localhost:5001/predict-multiple", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await res.json();
+  console.log("Hasil Multiple Flask:", data);
+
+  // TODO: tampilkan summary + CSV ke UI
+}
+
 
   function createCsv(list) {
     const header = ["filename", "type", "size_bytes", "status"];
