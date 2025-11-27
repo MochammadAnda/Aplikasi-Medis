@@ -15,9 +15,9 @@
   --secondary-3: #bbf7d0; /* pale mint */
 
   /* Panel translucency tint (use a darker teal-ish rgba for panels) */
-  --panel-bg-rgba: 5,43,51; /* matches deep teal (#052b33) */
+  --panel-bg-rgba: 5, 43, 51; /* matches deep teal (#052b33) */
   --panel-bg: rgba(var(--panel-bg-rgba), 0.28);
-  --panel-border-rgba: 14,165,164; /* teal-ish */
+  --panel-border-rgba: 14, 165, 164; /* teal-ish */
   --panel-border: rgba(var(--panel-border-rgba), 0.35);
   --card-bg: #ffffff;
   --on-primary: #ffffff;
@@ -46,11 +46,7 @@ body {
 /* Utility classes that reference the design tokens above. Use these in JSX to keep colors centralized. */
 .bg-primary-gradient {
   /* multiple stops from primary + secondary palettes for a healthcare-friendly gradient */
-  background: linear-gradient(135deg,
-    var(--primary-1) 0%,
-    var(--primary-2) 45%,
-    var(--secondary-2) 85%
-  );
+  background: linear-gradient(135deg, var(--primary-1) 0%, var(--primary-2) 45%, var(--secondary-2) 85%);
 }
 .panel-translucent {
   background: var(--panel-bg);
@@ -63,4 +59,31 @@ body {
 }
 .card-bg {
   background: var(--card-bg);
+}
+
+/* src/app/globals.css */
+
+/* Animasi Shimmer (Kilauan) untuk Badge */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Animasi Floating (Melayang) untuk Panah */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
