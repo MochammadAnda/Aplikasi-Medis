@@ -1,33 +1,11 @@
-"use client"; // Penting untuk Next.js App Router karena menggunakan useState/useEffect
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Button from "./Button";
-
-// --- Komponen Typewriter ---
-const Typewriter = ({ text, speed = 40 }) => {
-  const [displayedText, setDisplayedText] = useState("");
-
-  useEffect(() => {
-    setDisplayedText(""); // Reset saat text input berubah
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText((prev) => prev + text.charAt(i));
-        i++;
-      } else {
-        clearInterval(timer);
-      }
-    }, speed);
-
-    return () => clearInterval(timer);
-  }, [text, speed]);
-
-  return <span>{displayedText}</span>;
-};
+import { useTypewriter, Cursor } from "react-simple-typewriter";
 
 export default function Hero() {
-  // --- Data Deskripsi dari PDF  ---
   const descriptions = [
     "Membantu radiografer mengambil keputusan yang cepat, objektif, dan konsisten.",
     "Mempermudah identifikasi penyebab penolakan: Rotasi, Low Exposure, Motion, hingga Artefak.",
@@ -35,20 +13,18 @@ export default function Hero() {
     "Mendukung dokumentasi reject-repeat secara terstandar demi keselamatan pasien.",
   ];
 
-  const [index, setIndex] = useState(0);
-
-  // Logika loop kalimat setiap 6 detik
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % descriptions.length);
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, [descriptions.length]);
+  // PERBAIKAN: Gunakan [text] (array), bukan {text} (object)
+  const [text] = useTypewriter({
+    words: descriptions,
+    loop: true, // true artinya infinite loop
+    typeSpeed: 40,
+    deleteSpeed: 20,
+    delaySpeed: 3000,
+  });
 
   return (
     <section className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 relative overflow-visible">
-      {/* Dekorasi blur background (tuned) */}
+      {/* Dekorasi blur background */}
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-violet-600/30 rounded-full blur-2xl z-0 pointer-events-none" />
       <div className="absolute bottom-8 right-8 w-80 h-80 bg-blue-700/30 rounded-full blur-[80px] z-0 pointer-events-none" />
 
@@ -63,21 +39,21 @@ export default function Hero() {
                 boxShadow: "0 2px 8px 0 rgba(44, 62, 80, 0.15)",
               }}
             >
-              {/* Update sesuai Source 1 & 3 */}
               D-RadiographIQ
             </span>
           </div>
 
           {/* Headline */}
-          {/* Update sesuai Source 4 */}
           <h1 className="text-4xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Decision Support System for Thorax Image Acceptance</h1>
 
           {/* Subheadline dengan Typewriter */}
-          {/* Container diberikan min-height (h-24/h-20) agar layout tidak naik-turun saat ganti teks */}
           <div className="text-xl mb-4 md:text-xl mb-6 text-blue-200 flex items-center justify-center h-28 md:h-20" style={{ maxWidth: "750px" }}>
             <p>
-              <Typewriter key={index} text={descriptions[index]} speed={30} />
-              <span className="animate-pulse ml-1">|</span>
+              {/* Gunakan pre-wrap agar text panjang tetap wrap di mobile */}
+              <span className="text-blue-200 inline-block" style={{ minHeight: 24, whiteSpace: "pre-wrap" }}>
+                {text}
+              </span>
+              <Cursor cursorStyle="|" cursorColor="#bfdbfe" />
             </p>
           </div>
 
@@ -93,7 +69,6 @@ export default function Hero() {
             >
               Start Analysis
             </Button>
-            {/* <Button href="#about">Learn More</Button> */}
           </div>
         </div>
 

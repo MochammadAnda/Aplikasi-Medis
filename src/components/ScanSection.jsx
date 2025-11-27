@@ -203,7 +203,7 @@ export default function ScanSection() {
                   <div className="flex items-center justify-between px-2">
                     <p className="text-xs text-slate-500 font-mono truncate max-w-[200px]">{fileName}</p>
                     <button onClick={handleReset} className="text-sm flex items-center gap-2 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-full transition">
-                      🔄 Reset / Upload Ulang
+                      Upload Ulang
                     </button>
                   </div>
                 </div>

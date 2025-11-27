@@ -31,12 +31,12 @@ export default function CTASection() {
               <p className="text-sm text-slate-300 max-w-xl">Mahasiswa Magister Terapan Imaging Diagnostik yang mengembangkan SiTerMid sebagai solusi teleradiologi open source pertama di Indonesia.</p>
 
               <div className="flex gap-3 mt-3">
-                <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
+                {/* <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 .5C5.65.5.5 5.65.5 12S5.65 23.5 12 23.5 23.5 18.35 23.5 12 18.35.5 12 .5zm3.21 16.9h-1.79v-4.3c0-1.03-.02-2.35-1.43-2.35-1.43 0-1.65 1.12-1.65 2.27v4.38h-1.79V9.5h1.72v1.14h.02c.24-.45.82-1.03 1.69-1.03 1.81 0 2.14 1.19 2.14 2.72v4.37z" />
                   </svg>
                   GitHub
-                </a>
+                </a> */}
 
                 <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
