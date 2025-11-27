@@ -22,6 +22,18 @@ export default function Hero() {
     delaySpeed: 3000,
   });
 
+  // Fungsi untuk menangani scroll halus
+  const handleScrollToScan = (e) => {
+    e.preventDefault(); // Mencegah lompatan kasar default browser
+    const element = document.getElementById("scan");
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
     <section className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 relative overflow-visible">
       {/* Dekorasi blur background */}
@@ -33,14 +45,29 @@ export default function Hero() {
           {/* Badge */}
           <div className="mb-2">
             <span
-              className="inline-block text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full border border-transparent shadow-md"
+              className="relative inline-block text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full border border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.5)] overflow-hidden group"
               style={{
                 background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
-                boxShadow: "0 2px 8px 0 rgba(44, 62, 80, 0.15)",
               }}
             >
-              D-RadiographIQ
+              {/* Teks Utama */}
+              <span className="relative z-10">D-RadiographIQ</span>
+
+              {/* Layer Kilauan (Shimmer) */}
+              <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-[shimmer_2s_infinite]"></div>
             </span>
+
+            {/* Tambahkan style ini di file CSS global atau di tag style sementara */}
+            <style jsx>{`
+              @keyframes shimmer {
+                0% {
+                  transform: translateX(-150%);
+                }
+                100% {
+                  transform: translateX(250%);
+                }
+              }
+            `}</style>
           </div>
 
           {/* Headline */}
@@ -61,6 +88,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               href="#scan"
+              onClick={handleScrollToScan}
               variant="secondary"
               style={{
                 background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
@@ -73,9 +101,36 @@ export default function Hero() {
         </div>
 
         {/* Hero Illustration */}
-        <div className="flex justify-center mt-8">
-          <div className="relative w-72 h-72 md:w-96 md:h-96">
-            <Image src="/images/feature1.svg" alt="Thorax Analysis Illustration" fill className="object-contain drop-shadow-2xl" priority />
+        {/* Hero Illustration with Window Frame Style */}
+        <div className="flex justify-center mt-10 w-full px-4">
+          {/* Container Window Frame */}
+          {/* Menggunakan style yang sama: max-w-4xl, bg transparan, backdrop-blur */}
+          <div className="relative w-full max-w-4xl bg-slate-900/20 border border-white/10 rounded-xl shadow-2xl overflow-hidden backdrop-blur-md transform transition-all hover:scale-[1.01] duration-500">
+            {/* Header Bar */}
+            <div className="bg-slate-900/60 backdrop-blur-xl px-4 py-3 flex items-center justify-between border-b border-white/5">
+              {/* Traffic Lights */}
+              <div className="flex gap-2">
+                <div className="w-3 h-3 rounded-full bg-red-500/80 shadow-sm"></div>
+                <div className="w-3 h-3 rounded-full bg-yellow-500/80 shadow-sm"></div>
+                <div className="w-3 h-3 rounded-full bg-green-500/80 shadow-sm"></div>
+              </div>
+
+              {/* Title Bar Text */}
+              <div className="text-xs text-slate-400 font-mono tracking-wide absolute left-1/2 -translate-x-1/2">D-RadiographIQ Result</div>
+            </div>
+
+            {/* Area Gambar */}
+            {/* aspect-video agar lebar (16:9) */}
+            <div className="relative w-full aspect-video p-1">
+              <Image
+                src="/images/heroImg.webp"
+                alt="Thorax Analysis Illustration"
+                fill
+                /* object-contain agar gambar utuh 100% dan sisa ruang jadi blur */
+                className="object-contain"
+                priority
+              />
+            </div>
           </div>
         </div>
       </div>
