@@ -58,16 +58,26 @@ export default function Hero() {
             </span>
 
             {/* Tambahkan style ini di file CSS global atau di tag style sementara */}
-            <style jsx>{`
-              @keyframes shimmer {
-                0% {
-                  transform: translateX(-150%);
-                }
-                100% {
-                  transform: translateX(250%);
-                }
-              }
-            `}</style>
+            <div className="mb-2">
+              <span
+                className="relative inline-block text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full border border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.5)] overflow-hidden group"
+                style={{
+                  background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
+                }}
+              >
+                {/* Teks Utama */}
+                <span className="relative z-10">D-RadiographIQ</span>
+
+                {/* Layer Kilauan (Shimmer) */}
+                {/* PERUBAHAN DI SINI:
+        1. Hapus 'animate-[shimmer_2s_infinite]'
+        2. Ganti dengan class 'animate-shimmer' yang kita buat di globals.css
+    */}
+                <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shimmer"></div>
+              </span>
+
+              {/* PENTING: HAPUS BAGIAN <style jsx>...</style> YANG ADA DI SINI SEBELUMNYA */}
+            </div>
           </div>
 
           {/* Headline */}
@@ -123,7 +133,7 @@ export default function Hero() {
             {/* aspect-video agar lebar (16:9) */}
             <div className="relative w-full aspect-video p-1">
               <Image
-                src="/images/heroImg.webp"
+                src="/images/heroImg2.webp"
                 alt="Thorax Analysis Illustration"
                 fill
                 /* object-contain agar gambar utuh 100% dan sisa ruang jadi blur */
