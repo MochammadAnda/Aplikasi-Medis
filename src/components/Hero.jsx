@@ -8,7 +8,6 @@ import { useTypewriter, Cursor } from "react-simple-typewriter";
 export default function Hero() {
   const descriptions = [
     "Membantu radiografer mengambil keputusan yang cepat, objektif, dan konsisten.",
-    "Mempermudah identifikasi penyebab penolakan: Rotasi, Low Exposure, Motion, hingga Artefak.",
     "Meningkatkan mutu pencitraan serta mengurangi paparan radiasi yang tidak perlu.",
     "Mendukung dokumentasi reject-repeat secara terstandar demi keselamatan pasien.",
   ];

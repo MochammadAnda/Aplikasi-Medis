@@ -19,7 +19,7 @@ export default function Features() {
         </div>
       ),
       title: "Cepat & Efisien",
-      desc: "Proses analisis gambar dilakukan dengan cepat tanpa mengorbankan akurasi.",
+      desc: "Proses analisis citra dilakukan dengan cepat tanpa mengorbankan akurasi.",
     },
     {
       // Icon: Otak / Chip
