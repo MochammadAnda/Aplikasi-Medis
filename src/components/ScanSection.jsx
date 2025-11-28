@@ -5,17 +5,33 @@ import { useRef, useState, useEffect } from "react";
 import { postFormData } from "@/services/api";
 
 // Import Chart.js
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement, // Penting untuk Pie Chart
+} from "chart.js";
+import { Bar, Pie } from "react-chartjs-2"; // Import Pie Component
 
 // Registrasi komponen Chart.js
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement // Register ArcElement
+);
 
-// --- KOMPONEN ACTION CARDS (Desain Baru: Card per Poin) ---
+// --- KOMPONEN ACTION CARDS ---
 const ActionCards = ({ actionData, title }) => {
   if (!actionData) return null;
 
-  // Komponen Helper: Kartu Kecil untuk setiap Poin
   const PointCard = ({ children, variant }) => {
     const variants = {
       red: "bg-red-950/40 border-red-500/20 text-red-100 hover:bg-red-900/60 hover:border-red-500/50",
@@ -31,7 +47,6 @@ const ActionCards = ({ actionData, title }) => {
 
     return (
       <div className={`p-4 rounded-xl border ${variants[variant]} transition-all duration-300 flex gap-3 items-start group/card`}>
-        {/* Indikator Dot Glowing */}
         <span className={`mt-1.5 h-2 w-2 min-w-[8px] rounded-full ${dots[variant]} shadow-[0_0_8px] opacity-70 group-hover/card:opacity-100 transition-opacity`}></span>
         <span className="text-sm leading-relaxed font-medium opacity-90 group-hover/card:opacity-100">{children}</span>
       </div>
@@ -40,7 +55,6 @@ const ActionCards = ({ actionData, title }) => {
 
   return (
     <div className="w-full mt-10 animate-in fade-in slide-in-from-bottom-6 duration-700">
-      {/* Judul Section (Opsional) */}
       {title && (
         <div className="flex items-center justify-center mb-10">
           <div className="h-px w-16 bg-gradient-to-r from-transparent to-slate-600"></div>
@@ -49,77 +63,52 @@ const ActionCards = ({ actionData, title }) => {
         </div>
       )}
 
-      {/* Grid 3 Kolom */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* KOLOM 1: MASALAH (RED) */}
+        {/* KOLOM 1: MASALAH */}
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-red-500/10 rounded-2xl text-red-400 shadow-[0_0_20px_-5px_rgba(239,68,68,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
-                <path d="M12 9v4" />
-                <path d="M12 17h.01" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Deskripsi Masalah</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.diskripsi?.length > 0 ? (
-              actionData.diskripsi.map((item, i) => (
-                <PointCard key={i} variant="red">
-                  {item}
-                </PointCard>
-              ))
+              actionData.diskripsi.map((item, i) => <PointCard key={i} variant="red">{item}</PointCard>)
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada deskripsi spesifik.</div>
             )}
           </div>
         </div>
 
-        {/* KOLOM 2: PENYEBAB (AMBER) */}
+        {/* KOLOM 2: PENYEBAB */}
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-400 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                <path d="M3 3v5h5" />
-                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
-                <path d="M16 16h5v5" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" /><path d="M16 16h5v5" /></svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Penyebab / Orientasi</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.pengulangan?.length > 0 ? (
-              actionData.pengulangan.map((item, i) => (
-                <PointCard key={i} variant="amber">
-                  {item}
-                </PointCard>
-              ))
+              actionData.pengulangan.map((item, i) => <PointCard key={i} variant="amber">{item}</PointCard>)
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada data penyebab.</div>
             )}
           </div>
         </div>
 
-        {/* KOLOM 3: TINDAK LANJUT (EMERALD) */}
+        {/* KOLOM 3: TINDAK LANJUT */}
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
-                <path d="m9 12 2 2 4-4" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" /><path d="m9 12 2 2 4-4" /></svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Tindak Lanjut</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.tindaklanjut?.length > 0 ? (
-              actionData.tindaklanjut.map((item, i) => (
-                <PointCard key={i} variant="emerald">
-                  {item}
-                </PointCard>
-              ))
+              actionData.tindaklanjut.map((item, i) => <PointCard key={i} variant="emerald">{item}</PointCard>)
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada tindakan lanjut.</div>
             )}
@@ -147,6 +136,9 @@ export default function ScanSection() {
   const [multiStats, setMultiStats] = useState(null);
   const [multiAction, setMultiAction] = useState(null);
 
+  // State untuk Pilihan Chart (Bar vs Pie)
+  const [chartType, setChartType] = useState("bar");
+
   useEffect(() => {
     return () => {
       if (csvUrl) URL.revokeObjectURL(csvUrl);
@@ -168,31 +160,25 @@ export default function ScanSection() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Reset state hasil sebelumnya
     setSingleResult(null);
     setFileName(file.name);
-
-    // Reset preview
     setPreview(null);
     setFileType("");
 
     uploadSingleToFlask(file);
   }
 
-  // --- FUNGSI UPLOAD SINGLE ---
   async function uploadSingleToFlask(file) {
     setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("file", file);
-
       const data = await postFormData("/predict", formData);
       setSingleResult(data);
 
       if (data.image) {
         const base64Prefix = data.image.startsWith("data:") ? "" : "data:image/png;base64,";
         setPreview(`${base64Prefix}${data.image}`);
-        // Set tipe file manual ke image agar JSX merender tag <img>
         setFileType("image/png");
       }
     } catch (error) {
@@ -221,7 +207,6 @@ export default function ScanSection() {
     uploadMultipleToFlask(files);
   }
 
-  // --- FUNGSI UPLOAD MULTIPLE ---
   async function uploadMultipleToFlask(files) {
     setIsLoading(true);
     const formData = new FormData();
@@ -259,14 +244,44 @@ export default function ScanSection() {
     return new Blob([arr], { type });
   }
 
-  // --- KONFIGURASI CHART BAR ---
-  const chartOptions = {
+  // --- CONFIG WARNA & DATA ---
+  const chartColors = [
+    "rgba(59, 130, 246, 0.8)", // Blue
+    "rgba(239, 68, 68, 0.8)",  // Red
+    "rgba(16, 185, 129, 0.8)", // Green
+    "rgba(245, 158, 11, 0.8)", // Yellow
+  ];
+
+  const chartBorders = [
+    "rgba(59, 130, 246, 1)",
+    "rgba(239, 68, 68, 1)",
+    "rgba(16, 185, 129, 1)",
+    "rgba(245, 158, 11, 1)"
+  ];
+
+  const chartData = multiStats
+    ? {
+        labels: multiStats.map((item) => item.class_name),
+        datasets: [
+          {
+            label: "Jumlah Kasus",
+            data: multiStats.map((item) => item.count),
+            backgroundColor: chartColors,
+            borderColor: chartBorders,
+            borderWidth: 1,
+            borderRadius: chartType === 'bar' ? 6 : 0, // Radius hanya untuk Bar
+            hoverOffset: chartType === 'pie' ? 10 : 0, // Efek hover untuk Pie
+          },
+        ],
+      }
+    : null;
+
+  // --- OPSI BAR CHART ---
+  const barOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
         backgroundColor: "rgba(15, 23, 42, 0.95)",
         titleColor: "#cbd5e1",
@@ -280,57 +295,54 @@ export default function ScanSection() {
     scales: {
       y: {
         beginAtZero: true,
-        title: {
-          display: true,
-          text: "Jumlah Deteksi",
-          color: "#94a3b8",
-          font: { size: 12 },
-        },
-        ticks: {
-          stepSize: 1,
-          color: "#cbd5e1",
-        },
-        grid: {
-          color: "#334155",
-        },
+        title: { display: true, text: "Jumlah Deteksi", color: "#94a3b8", font: { size: 12 } },
+        ticks: { stepSize: 1, color: "#cbd5e1" },
+        grid: { color: "#334155" },
       },
       x: {
-        title: {
-          display: true,
-          text: "Kategori / Kelas",
-          color: "#94a3b8",
-          font: { size: 12 },
-        },
-        ticks: {
-          color: "#cbd5e1",
-        },
-        grid: {
-          display: false,
-        },
+        title: { display: true, text: "Kategori / Kelas", color: "#94a3b8", font: { size: 12 } },
+        ticks: { color: "#cbd5e1" },
+        grid: { display: false },
       },
     },
   };
 
-  const chartData = multiStats
-    ? {
-        labels: multiStats.map((item) => item.class_name),
-        datasets: [
-          {
-            label: "Jumlah Kasus",
-            data: multiStats.map((item) => item.count),
-            backgroundColor: [
-              "rgba(59, 130, 246, 0.8)", // Blue
-              "rgba(239, 68, 68, 0.8)", // Red
-              "rgba(16, 185, 129, 0.8)", // Green
-              "rgba(245, 158, 11, 0.8)", // Yellow
-            ],
-            borderColor: ["rgba(59, 130, 246, 1)", "rgba(239, 68, 68, 1)", "rgba(16, 185, 129, 1)", "rgba(245, 158, 11, 1)"],
-            borderWidth: 1,
-            borderRadius: 6,
-          },
-        ],
-      }
-    : null;
+  // --- OPSI PIE CHART ---
+  const pieOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right', // Posisi legend di kanan
+        labels: {
+          color: "#cbd5e1",
+          font: { size: 12 },
+          boxWidth: 15,
+          padding: 15
+        }
+      },
+      tooltip: {
+        backgroundColor: "rgba(15, 23, 42, 0.95)",
+        titleColor: "#cbd5e1",
+        bodyColor: "#fff",
+        borderColor: "#3b82f6",
+        borderWidth: 1,
+        callbacks: {
+          label: function(context) {
+            let label = context.label || '';
+            if (label) {
+              label += ': ';
+            }
+            let value = context.parsed;
+            let total = context.chart._metasets[context.datasetIndex].total;
+            let percentage = ((value / total) * 100).toFixed(1) + "%";
+            return label + value + " (" + percentage + ")";
+          }
+        }
+      },
+    },
+  };
 
   return (
     <section id="scan" className="w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white py-20 relative overflow-visible min-h-screen">
@@ -347,7 +359,7 @@ export default function ScanSection() {
           <input ref={singleInputRef} type="file" accept=".dcm,application/pdf,image/*" className="hidden" onChange={handleSingleChange} />
           <input ref={multiInputRef} type="file" multiple accept=".dcm,application/pdf,image/*" className="hidden" onChange={handleMultiChange} />
 
-          {/* Buttons */}
+          {/* Buttons Upload */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center w-full max-w-md">
             <button
               disabled={isLoading}
@@ -357,11 +369,7 @@ export default function ScanSection() {
               {isLoading && !multiFiles.length ? (
                 <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" x2="12" y1="3" y2="15" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg>
               )}
               {isLoading && !multiFiles.length ? "Processing..." : "Single Upload"}
             </button>
@@ -370,12 +378,7 @@ export default function ScanSection() {
               className="group flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg transition-all transform hover:-translate-y-1 border border-slate-600 flex items-center justify-center gap-3"
               onClick={() => multiInputRef.current?.click()}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
-                <polyline points="14 2 14 8 20 8" />
-                <path d="M3 15h6" />
-                <path d="M3 18h6" />
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" /><polyline points="14 2 14 8 20 8" /><path d="M3 15h6" /><path d="M3 18h6" /></svg>
               {isLoading && multiFiles.length > 0 ? "Processing Batch..." : "Multiple Upload"}
             </button>
           </div>
@@ -384,23 +387,17 @@ export default function ScanSection() {
           {fileName && !multiFiles.length && (
             <div className="w-full flex flex-col gap-8 mt-4 animate-in fade-in zoom-in duration-500">
               <div className="flex flex-col md:flex-row gap-8 items-start justify-center">
-                {/* Kiri: Preview & Status */}
                 <div className="flex flex-col items-center gap-4 w-full md:w-5/12">
                   <div className="w-full bg-slate-900/40 p-3 rounded-lg border border-slate-700 flex items-center justify-between">
                     <span className="text-slate-300 text-sm truncate px-2 font-mono">{fileName}</span>
                     <button onClick={handleReset} className="p-1 hover:bg-red-500/20 text-red-400 rounded transition" title="Reset">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 6h18" />
-                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                      </svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
                     </button>
                   </div>
 
                   {isLoading && (
                     <div className="w-full aspect-square max-w-sm bg-slate-900/50 rounded-2xl flex flex-col items-center justify-center border-2 border-slate-700 border-dashed animate-pulse relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-50"></div>
-                      <span className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full mb-3 relative z-10"></span>
+                       <span className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full mb-3 relative z-10"></span>
                       <span className="text-slate-400 text-sm font-medium relative z-10">Menganalisis Citra...</span>
                     </div>
                   )}
@@ -412,12 +409,10 @@ export default function ScanSection() {
                   )}
                 </div>
 
-                {/* Kanan: Hasil Statistik */}
                 {singleResult && (
                   <div className="w-full md:w-7/12 flex flex-col gap-4 h-full">
                     <div className="bg-slate-900/60 p-6 sm:p-8 rounded-3xl border border-slate-600/50 shadow-xl backdrop-blur-md relative overflow-hidden">
                       <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -mr-10 -mt-10"></div>
-
                       <h3 className="text-xs uppercase tracking-widest text-slate-400 mb-2 font-semibold">Hasil Prediksi Utama</h3>
                       <div className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-8 tracking-tight">{singleResult.predicted_class || "Unknown"}</div>
 
@@ -432,12 +427,7 @@ export default function ScanSection() {
                               <span className="text-slate-400 font-mono">{prob.percent}%</span>
                             </div>
                             <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden shadow-inner">
-                              <div
-                                className={`h-full rounded-full transition-all duration-1000 ease-out ${
-                                  prob.class_name === singleResult.predicted_class ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" : "bg-slate-600 group-hover:bg-slate-500"
-                                }`}
-                                style={{ width: `${parseFloat(prob.percent)}%` }}
-                              ></div>
+                              <div className={`h-full rounded-full transition-all duration-1000 ease-out ${prob.class_name === singleResult.predicted_class ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" : "bg-slate-600 group-hover:bg-slate-500"}`} style={{ width: `${parseFloat(prob.percent)}%` }}></div>
                             </div>
                           </div>
                         ))}
@@ -447,7 +437,6 @@ export default function ScanSection() {
                 )}
               </div>
 
-              {/* ACTION CARDS (Tampilan Baru) */}
               {singleResult && singleResult.action && (
                 <div className="border-t border-slate-700/50 pt-8 mt-4">
                   <ActionCards actionData={singleResult.action} />
@@ -493,23 +482,14 @@ export default function ScanSection() {
                         }
                       }}
                       className={`px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
-                        isLoading
-                          ? "bg-slate-800 text-slate-500 cursor-not-allowed col-span-2"
-                          : csvUrl
-                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 col-span-2 sm:col-span-1"
-                          : "bg-slate-700 text-slate-500 cursor-not-allowed col-span-2"
+                        isLoading ? "bg-slate-800 text-slate-500 cursor-not-allowed col-span-2" : csvUrl ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 col-span-2 sm:col-span-1" : "bg-slate-700 text-slate-500 cursor-not-allowed col-span-2"
                       }`}
                     >
                       {isLoading ? (
-                        <>
-                          <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></span>
-                          Memproses...
-                        </>
+                         <> <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></span> Memproses... </>
                       ) : csvUrl ? (
-                        <>📊 Download Excel</>
-                      ) : (
-                        "Menunggu..."
-                      )}
+                         <>📊 Download Excel</>
+                      ) : ( "Menunggu..." )}
                     </button>
 
                     <button
@@ -524,19 +504,42 @@ export default function ScanSection() {
                         if (multiInputRef.current) multiInputRef.current.value = "";
                       }}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M3 6h18" />
-                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                      </svg>
-                      Hapus & Ulang
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
+                      Reset & Ulang
                     </button>
                   </div>
                 </div>
 
-                {/* Kanan: Grafik Chart */}
+                {/* Kanan: Grafik Chart (Dengan Toggle) */}
                 <div className="order-1 md:order-2 flex flex-col bg-slate-900/40 rounded-3xl border border-slate-700/50 p-6 h-full min-h-[350px] shadow-lg">
-                  <h4 className="text-slate-300 font-semibold mb-6 text-center border-b border-slate-700 pb-4">Visualisasi Data</h4>
+                  <div className="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
+                    <h4 className="text-slate-300 font-semibold">Visualisasi Data</h4>
+
+                    {/* CHART TYPE TOGGLE */}
+                    <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-700/50">
+                        <button
+                            onClick={() => setChartType('bar')}
+                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+                                chartType === 'bar'
+                                ? 'bg-blue-600 text-white shadow-md'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'
+                            }`}
+                        >
+                            Bar
+                        </button>
+                        <button
+                            onClick={() => setChartType('pie')}
+                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
+                                chartType === 'pie'
+                                ? 'bg-blue-600 text-white shadow-md'
+                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'
+                            }`}
+                        >
+                            Pie
+                        </button>
+                    </div>
+                  </div>
+
                   <div className="flex-1 flex items-center justify-center w-full relative">
                     {isLoading ? (
                       <div className="flex flex-col items-center justify-center text-slate-500 gap-3 absolute inset-0">
@@ -544,16 +547,18 @@ export default function ScanSection() {
                         <span className="text-sm font-medium animate-pulse">Analisis data sedang berjalan...</span>
                       </div>
                     ) : chartData ? (
-                      <div className="w-full h-full min-h-[250px]">
-                        <Bar data={chartData} options={chartOptions} />
+                      <div className="w-full h-full min-h-[250px] flex justify-center items-center">
+                        {chartType === 'bar' ? (
+                            <Bar data={chartData} options={barOptions} />
+                        ) : (
+                            <div className="w-full h-[250px]">
+                                <Pie data={chartData} options={pieOptions} />
+                            </div>
+                        )}
                       </div>
                     ) : (
                       <div className="text-slate-600 text-sm text-center px-8 italic flex flex-col items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
-                          <line x1="18" x2="18" y1="20" y2="10" />
-                          <line x1="12" x2="12" y1="20" y2="4" />
-                          <line x1="6" x2="6" y1="20" y2="14" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-50"><line x1="18" x2="18" y1="20" y2="10" /><line x1="12" x2="12" y1="20" y2="4" /><line x1="6" x2="6" y1="20" y2="14" /></svg>
                         Grafik akan muncul di sini setelah analisis selesai.
                       </div>
                     )}
@@ -561,7 +566,6 @@ export default function ScanSection() {
                 </div>
               </div>
 
-              {/* TAMPILAN TINDAK LANJUT BATCH */}
               {multiAction && (
                 <div className="border-t border-slate-700 pt-8 mt-4">
                   <ActionCards actionData={multiAction} title={`Rekomendasi Tindak Lanjut (Dominan: ${multiAction.dataid})`} />
