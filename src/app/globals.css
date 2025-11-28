@@ -87,3 +87,32 @@ body {
 .animate-float {
   animation: float 3s ease-in-out infinite;
 }
+
+/* ... kode css lainnya ... */
+
+/* === KUSTOMISASI SCROLLBAR (Tema Dark Blue/Slate) === */
+
+/* Untuk Chrome, Edge, dan Safari */
+::-webkit-scrollbar {
+  width: 10px; /* Lebar scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a; /* Warna Lintasan (Slate-900) - Gelap menyatu dengan BG */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155; /* Warna Batang (Slate-700) - Abu kebiruan */
+  border-radius: 9999px; /* Membuat ujungnya bulat */
+  border: 2px solid #0f172a; /* Memberi jarak (padding) antara batang dan lintasan */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb; /* Warna saat disorot (Blue-600) - Sesuai warna brand */
+}
+
+/* Untuk Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #334155 #0f172a; /* Warna Batang & Warna Lintasan */
+}

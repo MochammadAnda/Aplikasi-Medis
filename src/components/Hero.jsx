@@ -42,7 +42,7 @@ export default function Hero() {
 
       <div className="max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center gap-4 relative z-10">
         <div className="w-full flex flex-col items-center text-center gap-2 mb-2">
-          {/* Badge */}
+          {/* Tambahkan style ini di file CSS global atau di tag style sementara */}
           <div className="mb-2">
             <span
               className="relative inline-block text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full border border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.5)] overflow-hidden group"
@@ -54,30 +54,14 @@ export default function Hero() {
               <span className="relative z-10">D-RadiographIQ</span>
 
               {/* Layer Kilauan (Shimmer) */}
-              <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-[shimmer_2s_infinite]"></div>
-            </span>
-
-            {/* Tambahkan style ini di file CSS global atau di tag style sementara */}
-            <div className="mb-2">
-              <span
-                className="relative inline-block text-white text-xs md:text-sm font-semibold px-4 py-2 rounded-full border border-white/10 shadow-[0_0_15px_rgba(124,58,237,0.5)] overflow-hidden group"
-                style={{
-                  background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
-                }}
-              >
-                {/* Teks Utama */}
-                <span className="relative z-10">D-RadiographIQ</span>
-
-                {/* Layer Kilauan (Shimmer) */}
-                {/* PERUBAHAN DI SINI:
+              {/* PERUBAHAN DI SINI:
         1. Hapus 'animate-[shimmer_2s_infinite]'
         2. Ganti dengan class 'animate-shimmer' yang kita buat di globals.css
     */}
-                <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shimmer"></div>
-              </span>
+              <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shimmer"></div>
+            </span>
 
-              {/* PENTING: HAPUS BAGIAN <style jsx>...</style> YANG ADA DI SINI SEBELUMNYA */}
-            </div>
+            {/* PENTING: HAPUS BAGIAN <style jsx>...</style> YANG ADA DI SINI SEBELUMNYA */}
           </div>
 
           {/* Headline */}
