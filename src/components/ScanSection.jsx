@@ -13,9 +13,9 @@ import {
   Title,
   Tooltip,
   Legend,
-  ArcElement, // Penting untuk Pie Chart
+  ArcElement,
 } from "chart.js";
-import { Bar, Pie } from "react-chartjs-2"; // Import Pie Component
+import { Bar, Pie } from "react-chartjs-2";
 
 // Registrasi komponen Chart.js
 ChartJS.register(
@@ -25,7 +25,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement // Register ArcElement
+  ArcElement
 );
 
 // --- KOMPONEN ACTION CARDS ---
@@ -136,6 +136,10 @@ export default function ScanSection() {
   const [multiStats, setMultiStats] = useState(null);
   const [multiAction, setMultiAction] = useState(null);
 
+  // State untuk Download Modal
+  const [customExcelName, setCustomExcelName] = useState("");
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
   // State untuk Pilihan Chart (Bar vs Pie)
   const [chartType, setChartType] = useState("bar");
 
@@ -196,6 +200,7 @@ export default function ScanSection() {
     setCsvUrl(null);
     setMultiStats(null);
     setMultiAction(null);
+    setCustomExcelName("");
 
     const list = files.map((f) => ({
       name: f.name,
@@ -244,20 +249,24 @@ export default function ScanSection() {
     return new Blob([arr], { type });
   }
 
-  // --- CONFIG WARNA & DATA ---
-  const chartColors = [
-    "rgba(59, 130, 246, 0.8)", // Blue
-    "rgba(239, 68, 68, 0.8)",  // Red
-    "rgba(16, 185, 129, 0.8)", // Green
-    "rgba(245, 158, 11, 0.8)", // Yellow
-  ];
+  // --- FUNGSI EKSEKUSI DOWNLOAD ---
+  const handleDownloadExecution = () => {
+    if (csvUrl) {
+      const a = document.createElement("a");
+      a.href = csvUrl;
+      const fileName = customExcelName.trim()
+        ? (customExcelName.endsWith('.xlsx') ? customExcelName : `${customExcelName}.xlsx`)
+        : "hasil_klasifikasi_batch.xlsx";
 
-  const chartBorders = [
-    "rgba(59, 130, 246, 1)",
-    "rgba(239, 68, 68, 1)",
-    "rgba(16, 185, 129, 1)",
-    "rgba(245, 158, 11, 1)"
-  ];
+      a.download = fileName;
+      a.click();
+      setShowDownloadModal(false); // Tutup modal setelah download
+    }
+  };
+
+  // --- CHART CONFIG ---
+  const chartColors = ["rgba(59, 130, 246, 0.8)", "rgba(239, 68, 68, 0.8)", "rgba(16, 185, 129, 0.8)", "rgba(245, 158, 11, 0.8)"];
+  const chartBorders = ["rgba(59, 130, 246, 1)", "rgba(239, 68, 68, 1)", "rgba(16, 185, 129, 1)", "rgba(245, 158, 11, 1)"];
 
   const chartData = multiStats
     ? {
@@ -269,14 +278,13 @@ export default function ScanSection() {
             backgroundColor: chartColors,
             borderColor: chartBorders,
             borderWidth: 1,
-            borderRadius: chartType === 'bar' ? 6 : 0, // Radius hanya untuk Bar
-            hoverOffset: chartType === 'pie' ? 10 : 0, // Efek hover untuk Pie
+            borderRadius: chartType === 'bar' ? 6 : 0,
+            hoverOffset: chartType === 'pie' ? 10 : 0,
           },
         ],
       }
     : null;
 
-  // --- OPSI BAR CHART ---
   const barOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -307,14 +315,13 @@ export default function ScanSection() {
     },
   };
 
-  // --- OPSI PIE CHART ---
   const pieOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
-        position: 'right', // Posisi legend di kanan
+        position: 'right',
         labels: {
           color: "#cbd5e1",
           font: { size: 12 },
@@ -331,9 +338,7 @@ export default function ScanSection() {
         callbacks: {
           label: function(context) {
             let label = context.label || '';
-            if (label) {
-              label += ': ';
-            }
+            if (label) { label += ': '; }
             let value = context.parsed;
             let total = context.chart._metasets[context.datasetIndex].total;
             let percentage = ((value / total) * 100).toFixed(1) + "%";
@@ -456,8 +461,8 @@ export default function ScanSection() {
                     <span className="px-3 py-1 bg-slate-700/50 rounded-full text-xs font-mono text-blue-300 border border-slate-600">{multiFiles.length} files</span>
                   </div>
 
-                  <div className="bg-slate-900/40 p-1 rounded-2xl border border-slate-700/50 flex-1 min-h-[250px] flex flex-col shadow-inner">
-                    <div className="overflow-y-auto max-h-[300px] custom-scrollbar p-2 space-y-2">
+                  <div className="bg-slate-900/40 p-1 rounded-2xl border border-slate-700/50 flex-1 min-h-[200px] flex flex-col shadow-inner">
+                    <div className="overflow-y-auto max-h-[250px] custom-scrollbar p-2 space-y-2">
                       {multiFiles.map((f, i) => (
                         <div key={i} className="text-sm text-slate-300 flex justify-between items-center bg-slate-800/40 p-3 rounded-xl border border-transparent hover:border-slate-600 hover:bg-slate-800/60 transition group">
                           <div className="flex items-center gap-3 overflow-hidden">
@@ -470,17 +475,11 @@ export default function ScanSection() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-1">
+                    {/* BUTTON DOWNLOAD UTAMA (Sekarang Membuka Modal) */}
                     <button
                       disabled={isLoading || !csvUrl}
-                      onClick={() => {
-                        if (csvUrl) {
-                          const a = document.createElement("a");
-                          a.href = csvUrl;
-                          a.download = "hasil_klasifikasi_batch.xlsx";
-                          a.click();
-                        }
-                      }}
+                      onClick={() => setShowDownloadModal(true)}
                       className={`px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
                         isLoading ? "bg-slate-800 text-slate-500 cursor-not-allowed col-span-2" : csvUrl ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 col-span-2 sm:col-span-1" : "bg-slate-700 text-slate-500 cursor-not-allowed col-span-2"
                       }`}
@@ -501,6 +500,7 @@ export default function ScanSection() {
                         setMultiStats(null);
                         setCsvUrl(null);
                         setMultiAction(null);
+                        setCustomExcelName("");
                         if (multiInputRef.current) multiInputRef.current.value = "";
                       }}
                     >
@@ -510,33 +510,14 @@ export default function ScanSection() {
                   </div>
                 </div>
 
-                {/* Kanan: Grafik Chart (Dengan Toggle) */}
+                {/* Kanan: Grafik Chart */}
                 <div className="order-1 md:order-2 flex flex-col bg-slate-900/40 rounded-3xl border border-slate-700/50 p-6 h-full min-h-[350px] shadow-lg">
                   <div className="flex items-center justify-between border-b border-slate-700 pb-4 mb-4">
                     <h4 className="text-slate-300 font-semibold">Visualisasi Data</h4>
-
                     {/* CHART TYPE TOGGLE */}
                     <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-700/50">
-                        <button
-                            onClick={() => setChartType('bar')}
-                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-                                chartType === 'bar'
-                                ? 'bg-blue-600 text-white shadow-md'
-                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'
-                            }`}
-                        >
-                            Bar
-                        </button>
-                        <button
-                            onClick={() => setChartType('pie')}
-                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${
-                                chartType === 'pie'
-                                ? 'bg-blue-600 text-white shadow-md'
-                                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'
-                            }`}
-                        >
-                            Pie
-                        </button>
+                        <button onClick={() => setChartType('bar')} className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === 'bar' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'}`}>Bar</button>
+                        <button onClick={() => setChartType('pie')} className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === 'pie' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'}`}>Pie</button>
                     </div>
                   </div>
 
@@ -575,6 +556,45 @@ export default function ScanSection() {
           )}
         </div>
       </div>
+
+      {/* --- POPUP / MODAL DOWNLOAD --- */}
+      {showDownloadModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-slate-800 border border-slate-600 rounded-2xl p-6 w-full max-w-md shadow-2xl scale-100 animate-in zoom-in-95 duration-200">
+            <h3 className="text-xl font-bold text-white mb-2">Simpan Hasil Analisis</h3>
+            <p className="text-slate-400 text-sm mb-6">Masukkan nama file untuk menyimpan hasil analisis Anda dalam format Excel (.xlsx).</p>
+
+            <div className="mb-6">
+              <label className="text-xs text-slate-300 font-semibold mb-2 block uppercase tracking-wider">Nama File</label>
+              <input
+                type="text"
+                autoFocus
+                value={customExcelName}
+                onChange={(e) => setCustomExcelName(e.target.value)}
+                placeholder="contoh: hasil_klasifikasi"
+                className="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+              />
+              <p className="text-right text-xs text-slate-500 mt-2">Default: hasil_klasifikasi_batch.xlsx</p>
+            </div>
+
+            <div className="flex gap-3 justify-end">
+              <button
+                onClick={() => setShowDownloadModal(false)}
+                className="px-5 py-2.5 rounded-xl text-slate-300 font-medium hover:bg-slate-700 transition-colors"
+              >
+                Batal
+              </button>
+              <button
+                onClick={handleDownloadExecution}
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-emerald-900/20 flex items-center gap-2 transition-transform active:scale-95"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                Download
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
