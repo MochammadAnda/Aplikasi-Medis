@@ -5,11 +5,8 @@ import Image from "next/image"; // Pastikan ini ada di paling atas
 
 export default function CTASection() {
   return (
-    <section className="w-full py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-visible" id="cta">
-      {/* Dekorasi blur background sama seperti Hero (tuned) */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-violet-600/30 rounded-full blur-2xl z-0 pointer-events-none"></div>
-      <div className="absolute bottom-8 right-8 w-80 h-80 bg-blue-700/30 rounded-full blur-[80px] z-0 pointer-events-none"></div>
-      <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+    <section className="w-full py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white" id="cta">
+      <div className="max-w-6xl mx-auto px-6 text-center">
         <h2 className="text-3xl font-bold text-white mb-10">Loved by Devs</h2>
 
         <div className="relative bg-slate-800/30 border border-slate-700/60 rounded-2xl p-6 md:p-10 backdrop-blur-sm">
