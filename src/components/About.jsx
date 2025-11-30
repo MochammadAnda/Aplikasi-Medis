@@ -37,7 +37,7 @@ export default function About() {
               {/* Area Gambar */}
               <div className="relative w-full aspect-video p-1">
                 <Image
-                  src="/images/about.webp"
+                  src="/images/About.webp"
                   alt="About D-RadiographIQ"
                   fill
                   /* object-contain memastikan gambar utuh. 
