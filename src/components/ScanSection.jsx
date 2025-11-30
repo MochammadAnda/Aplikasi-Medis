@@ -369,7 +369,7 @@ export default function ScanSection() {
           </div>
 
           <input ref={singleInputRef} type="file" accept=".dcm" className="hidden" onChange={handleSingleChange} />
-          <input ref={multiInputRef} type="file" multiple accept=".dcm,application/pdf,image/*" className="hidden" onChange={handleMultiChange} />
+          <input ref={multiInputRef} type="file" multiple accept=".dcm" className="hidden" onChange={handleMultiChange} />
 
           {/* Buttons Upload */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center w-full max-w-md">
