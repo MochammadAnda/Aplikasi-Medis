@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Pastikan port ini sama dengan backend Flask Anda
-const API_BASE_URL = "http://72.61.143.142:5001";
+const API_BASE_URL = "https://dradiographiq.cloud/flask";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -42,7 +42,7 @@ export const postFormData = async (endpoint, formData) => {
 export const predictSingleImage = async (file) => {
   const formData = new FormData();
   // Key 'file' harus sesuai dengan: request.files['file'] di Flask
-  formData.append("file", file); 
+  formData.append("file", file);
 
   return await postFormData("/predict", formData);
 };
@@ -53,7 +53,7 @@ export const predictSingleImage = async (file) => {
  */
 export const predictMultipleImages = async (files) => {
   const formData = new FormData();
-  
+
   // Loop dan append dengan key yang sama ('files')
   // Harus sesuai dengan: request.files.getlist('files') di Flask
   Array.from(files).forEach((file) => {
