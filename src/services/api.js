@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Pastikan port ini sama dengan backend Flask Anda
-const API_BASE_URL = "https://api.dradiographiq.cloud/";
+const API_BASE_URL = "https://dradiographiq.cloud/flask";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
