@@ -5,28 +5,11 @@ import { useRef, useState, useEffect } from "react";
 import { postFormData } from "@/services/api";
 
 // Import Chart.js
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
 
 // Registrasi komponen Chart.js
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  ArcElement
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 // --- KOMPONEN ACTION CARDS ---
 const ActionCards = ({ actionData, title }) => {
@@ -68,13 +51,21 @@ const ActionCards = ({ actionData, title }) => {
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-red-500/10 rounded-2xl text-red-400 shadow-[0_0_20px_-5px_rgba(239,68,68,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" /><path d="M12 9v4" /><path d="M12 17h.01" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                <path d="M12 9v4" />
+                <path d="M12 17h.01" />
+              </svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Deskripsi Masalah</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.diskripsi?.length > 0 ? (
-              actionData.diskripsi.map((item, i) => <PointCard key={i} variant="red">{item}</PointCard>)
+              actionData.diskripsi.map((item, i) => (
+                <PointCard key={i} variant="red">
+                  {item}
+                </PointCard>
+              ))
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada deskripsi spesifik.</div>
             )}
@@ -85,13 +76,22 @@ const ActionCards = ({ actionData, title }) => {
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-400 shadow-[0_0_20px_-5px_rgba(245,158,11,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /><path d="M3 3v5h5" /><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" /><path d="M16 16h5v5" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M16 16h5v5" />
+              </svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Penyebab / Orientasi</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.pengulangan?.length > 0 ? (
-              actionData.pengulangan.map((item, i) => <PointCard key={i} variant="amber">{item}</PointCard>)
+              actionData.pengulangan.map((item, i) => (
+                <PointCard key={i} variant="amber">
+                  {item}
+                </PointCard>
+              ))
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada data penyebab.</div>
             )}
@@ -102,13 +102,20 @@ const ActionCards = ({ actionData, title }) => {
         <div className="flex flex-col h-full bg-slate-900/40 border border-slate-700/60 rounded-3xl p-6 backdrop-blur-sm">
           <div className="flex items-center gap-4 mb-6 pb-4 border-b border-slate-700/60">
             <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 shadow-[0_0_20px_-5px_rgba(16,185,129,0.3)]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" /><path d="m9 12 2 2 4-4" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
             </div>
             <h4 className="font-bold text-slate-200 text-lg">Tindak Lanjut</h4>
           </div>
           <div className="space-y-3 flex-1">
             {actionData.tindaklanjut?.length > 0 ? (
-              actionData.tindaklanjut.map((item, i) => <PointCard key={i} variant="emerald">{item}</PointCard>)
+              actionData.tindaklanjut.map((item, i) => (
+                <PointCard key={i} variant="emerald">
+                  {item}
+                </PointCard>
+              ))
             ) : (
               <div className="p-4 rounded-xl border border-dashed border-slate-700 text-slate-500 text-sm text-center italic">Tidak ada tindakan lanjut.</div>
             )}
@@ -254,9 +261,7 @@ export default function ScanSection() {
     if (csvUrl) {
       const a = document.createElement("a");
       a.href = csvUrl;
-      const fileName = customExcelName.trim()
-        ? (customExcelName.endsWith('.xlsx') ? customExcelName : `${customExcelName}.xlsx`)
-        : "hasil_klasifikasi_batch.xlsx";
+      const fileName = customExcelName.trim() ? (customExcelName.endsWith(".xlsx") ? customExcelName : `${customExcelName}.xlsx`) : "hasil_klasifikasi_batch.xlsx";
 
       a.download = fileName;
       a.click();
@@ -278,8 +283,8 @@ export default function ScanSection() {
             backgroundColor: chartColors,
             borderColor: chartBorders,
             borderWidth: 1,
-            borderRadius: chartType === 'bar' ? 6 : 0,
-            hoverOffset: chartType === 'pie' ? 10 : 0,
+            borderRadius: chartType === "bar" ? 6 : 0,
+            hoverOffset: chartType === "pie" ? 10 : 0,
           },
         ],
       }
@@ -321,13 +326,13 @@ export default function ScanSection() {
     plugins: {
       legend: {
         display: true,
-        position: 'right',
+        position: "right",
         labels: {
           color: "#cbd5e1",
           font: { size: 12 },
           boxWidth: 15,
-          padding: 15
-        }
+          padding: 15,
+        },
       },
       tooltip: {
         backgroundColor: "rgba(15, 23, 42, 0.95)",
@@ -336,15 +341,17 @@ export default function ScanSection() {
         borderColor: "#3b82f6",
         borderWidth: 1,
         callbacks: {
-          label: function(context) {
-            let label = context.label || '';
-            if (label) { label += ': '; }
+          label: function (context) {
+            let label = context.label || "";
+            if (label) {
+              label += ": ";
+            }
             let value = context.parsed;
             let total = context.chart._metasets[context.datasetIndex].total;
             let percentage = ((value / total) * 100).toFixed(1) + "%";
             return label + value + " (" + percentage + ")";
-          }
-        }
+          },
+        },
       },
     },
   };
@@ -361,7 +368,7 @@ export default function ScanSection() {
             <p className="text-lg text-slate-300 max-w-2xl mx-auto">Unggah file DICOM untuk analisis klasifikasi dan rekomendasi tindakan otomatis.</p>
           </div>
 
-          <input ref={singleInputRef} type="file" accept=".dcm,application/pdf,image/*" className="hidden" onChange={handleSingleChange} />
+          <input ref={singleInputRef} type="file" accept=".dcm" className="hidden" onChange={handleSingleChange} />
           <input ref={multiInputRef} type="file" multiple accept=".dcm,application/pdf,image/*" className="hidden" onChange={handleMultiChange} />
 
           {/* Buttons Upload */}
@@ -374,7 +381,11 @@ export default function ScanSection() {
               {isLoading && !multiFiles.length ? (
                 <span className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"></span>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="17 8 12 3 7 8" /><line x1="12" x2="12" y1="3" y2="15" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" x2="12" y1="3" y2="15" />
+                </svg>
               )}
               {isLoading && !multiFiles.length ? "Processing..." : "Single Upload"}
             </button>
@@ -383,7 +394,12 @@ export default function ScanSection() {
               className="group flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg transition-all transform hover:-translate-y-1 border border-slate-600 flex items-center justify-center gap-3"
               onClick={() => multiInputRef.current?.click()}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" /><polyline points="14 2 14 8 20 8" /><path d="M3 15h6" /><path d="M3 18h6" /></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4" />
+                <polyline points="14 2 14 8 20 8" />
+                <path d="M3 15h6" />
+                <path d="M3 18h6" />
+              </svg>
               {isLoading && multiFiles.length > 0 ? "Processing Batch..." : "Multiple Upload"}
             </button>
           </div>
@@ -396,13 +412,17 @@ export default function ScanSection() {
                   <div className="w-full bg-slate-900/40 p-3 rounded-lg border border-slate-700 flex items-center justify-between">
                     <span className="text-slate-300 text-sm truncate px-2 font-mono">{fileName}</span>
                     <button onClick={handleReset} className="p-1 hover:bg-red-500/20 text-red-400 rounded transition" title="Reset">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 6h18" />
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                      </svg>
                     </button>
                   </div>
 
                   {isLoading && (
                     <div className="w-full aspect-square max-w-sm bg-slate-900/50 rounded-2xl flex flex-col items-center justify-center border-2 border-slate-700 border-dashed animate-pulse relative overflow-hidden">
-                       <span className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full mb-3 relative z-10"></span>
+                      <span className="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full mb-3 relative z-10"></span>
                       <span className="text-slate-400 text-sm font-medium relative z-10">Menganalisis Citra...</span>
                     </div>
                   )}
@@ -432,7 +452,12 @@ export default function ScanSection() {
                               <span className="text-slate-400 font-mono">{prob.percent}%</span>
                             </div>
                             <div className="w-full bg-slate-800 rounded-full h-3 overflow-hidden shadow-inner">
-                              <div className={`h-full rounded-full transition-all duration-1000 ease-out ${prob.class_name === singleResult.predicted_class ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" : "bg-slate-600 group-hover:bg-slate-500"}`} style={{ width: `${parseFloat(prob.percent)}%` }}></div>
+                              <div
+                                className={`h-full rounded-full transition-all duration-1000 ease-out ${
+                                  prob.class_name === singleResult.predicted_class ? "bg-gradient-to-r from-blue-600 to-cyan-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" : "bg-slate-600 group-hover:bg-slate-500"
+                                }`}
+                                style={{ width: `${parseFloat(prob.percent)}%` }}
+                              ></div>
                             </div>
                           </div>
                         ))}
@@ -481,14 +506,23 @@ export default function ScanSection() {
                       disabled={isLoading || !csvUrl}
                       onClick={() => setShowDownloadModal(true)}
                       className={`px-4 py-3 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${
-                        isLoading ? "bg-slate-800 text-slate-500 cursor-not-allowed col-span-2" : csvUrl ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 col-span-2 sm:col-span-1" : "bg-slate-700 text-slate-500 cursor-not-allowed col-span-2"
+                        isLoading
+                          ? "bg-slate-800 text-slate-500 cursor-not-allowed col-span-2"
+                          : csvUrl
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-900/20 col-span-2 sm:col-span-1"
+                          : "bg-slate-700 text-slate-500 cursor-not-allowed col-span-2"
                       }`}
                     >
                       {isLoading ? (
-                         <> <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></span> Memproses... </>
+                        <>
+                          {" "}
+                          <span className="animate-spin h-4 w-4 border-2 border-current border-t-transparent rounded-full"></span> Memproses...{" "}
+                        </>
                       ) : csvUrl ? (
-                         <>📊 Download Excel</>
-                      ) : ( "Menunggu..." )}
+                        <>📊 Download Excel</>
+                      ) : (
+                        "Menunggu..."
+                      )}
                     </button>
 
                     <button
@@ -504,7 +538,11 @@ export default function ScanSection() {
                         if (multiInputRef.current) multiInputRef.current.value = "";
                       }}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M3 6h18" />
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                      </svg>
                       Reset & Ulang
                     </button>
                   </div>
@@ -516,8 +554,18 @@ export default function ScanSection() {
                     <h4 className="text-slate-300 font-semibold">Visualisasi Data</h4>
                     {/* CHART TYPE TOGGLE */}
                     <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-700/50">
-                        <button onClick={() => setChartType('bar')} className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === 'bar' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'}`}>Bar</button>
-                        <button onClick={() => setChartType('pie')} className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === 'pie' ? 'bg-blue-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700'}`}>Pie</button>
+                      <button
+                        onClick={() => setChartType("bar")}
+                        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === "bar" ? "bg-blue-600 text-white shadow-md" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700"}`}
+                      >
+                        Bar
+                      </button>
+                      <button
+                        onClick={() => setChartType("pie")}
+                        className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${chartType === "pie" ? "bg-blue-600 text-white shadow-md" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700"}`}
+                      >
+                        Pie
+                      </button>
                     </div>
                   </div>
 
@@ -529,17 +577,21 @@ export default function ScanSection() {
                       </div>
                     ) : chartData ? (
                       <div className="w-full h-full min-h-[250px] flex justify-center items-center">
-                        {chartType === 'bar' ? (
-                            <Bar data={chartData} options={barOptions} />
+                        {chartType === "bar" ? (
+                          <Bar data={chartData} options={barOptions} />
                         ) : (
-                            <div className="w-full h-[250px]">
-                                <Pie data={chartData} options={pieOptions} />
-                            </div>
+                          <div className="w-full h-[250px]">
+                            <Pie data={chartData} options={pieOptions} />
+                          </div>
                         )}
                       </div>
                     ) : (
                       <div className="text-slate-600 text-sm text-center px-8 italic flex flex-col items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-50"><line x1="18" x2="18" y1="20" y2="10" /><line x1="12" x2="12" y1="20" y2="4" /><line x1="6" x2="6" y1="20" y2="14" /></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
+                          <line x1="18" x2="18" y1="20" y2="10" />
+                          <line x1="12" x2="12" y1="20" y2="4" />
+                          <line x1="6" x2="6" y1="20" y2="14" />
+                        </svg>
                         Grafik akan muncul di sini setelah analisis selesai.
                       </div>
                     )}
@@ -578,17 +630,18 @@ export default function ScanSection() {
             </div>
 
             <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setShowDownloadModal(false)}
-                className="px-5 py-2.5 rounded-xl text-slate-300 font-medium hover:bg-slate-700 transition-colors"
-              >
+              <button onClick={() => setShowDownloadModal(false)} className="px-5 py-2.5 rounded-xl text-slate-300 font-medium hover:bg-slate-700 transition-colors">
                 Batal
               </button>
               <button
                 onClick={handleDownloadExecution}
                 className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold shadow-lg shadow-emerald-900/20 flex items-center gap-2 transition-transform active:scale-95"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" x2="12" y1="15" y2="3" />
+                </svg>
                 Download
               </button>
             </div>
