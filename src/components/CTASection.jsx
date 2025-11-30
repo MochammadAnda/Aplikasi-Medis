@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image"; // Pastikan ini ada di paling atas
 
 export default function CTASection() {
   return (
@@ -8,10 +9,6 @@ export default function CTASection() {
       {/* Dekorasi blur background sama seperti Hero (tuned) */}
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-violet-600/30 rounded-full blur-2xl z-0 pointer-events-none"></div>
       <div className="absolute bottom-8 right-8 w-80 h-80 bg-blue-700/30 rounded-full blur-[80px] z-0 pointer-events-none"></div>
-      {/* Blur effect for section border (top)
-      <div className="absolute left-0 right-0 -top-6 h-12 pointer-events-none z-10">
-        <div className="w-full h-full bg-gradient-to-t from-slate-900/80 via-slate-900/40 to-transparent backdrop-blur-md"></div>
-      </div> */}
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
         <h2 className="text-3xl font-bold text-white mb-10">Loved by Devs</h2>
 
@@ -20,24 +17,25 @@ export default function CTASection() {
             <div className="flex flex-col items-center gap-4">
               {/* Avatar */}
               <div className="w-28 h-28 rounded-full bg-gradient-to-br from-[var(--primary-2)] to-[var(--secondary-2)] p-1 shadow-lg">
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-xl font-bold text-gray-800">MD</div>
+                {/* Tambahkan 'relative' dan 'overflow-hidden' agar gambar terpotong bulat */}
+                <div className="relative w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+                  <Image
+                    src="/images/ctaImg.webp" // Ganti dengan nama file gambar Anda yang ada di public/images
+                    alt="Foto Profil"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-on-primary">dgDev</h3>
+                <h3 className="text-lg font-semibold text-on-primary">Dwi Rochmayanti</h3>
                 <div className="text-sm text-slate-200">Founder & Developer</div>
               </div>
 
-              <p className="text-sm text-slate-300 max-w-xl">Mahasiswa Magister Terapan Imaging Diagnostik yang mengembangkan SiTerMid sebagai solusi teleradiologi open source pertama di Indonesia.</p>
+              <p className="text-sm font-semibold text-slate-300 max-w-xl"> Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya" (HR. Ahmad dan ath-Thabrani).</p>
 
               <div className="flex gap-3 mt-3">
-                <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 .5C5.65.5.5 5.65.5 12S5.65 23.5 12 23.5 23.5 18.35 23.5 12 18.35.5 12 .5zm3.21 16.9h-1.79v-4.3c0-1.03-.02-2.35-1.43-2.35-1.43 0-1.65 1.12-1.65 2.27v4.38h-1.79V9.5h1.72v1.14h.02c.24-.45.82-1.03 1.69-1.03 1.81 0 2.14 1.19 2.14 2.72v4.37z" />
-                  </svg>
-                  GitHub
-                </a>
-
                 <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M22 12.07C22 6 17.52 1.5 11.5 1.5S1 6 1 12.07c0 5 3.66 9.17 8.44 9.93v-7.03H7.9v-2.9h1.55V9.88c0-1.53.9-2.38 2.28-2.38.66 0 1.35.12 1.35.12v1.49h-.77c-.76 0-1 .48-1 0v-1.49h1.7l-.27 2.9h-1.43V22c4.78-.76 8.44-4.93 8.44-9.93z" />

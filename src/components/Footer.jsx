@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
 
           {/* Blok 2: Copyright */}
-          <div className="text-sm text-on-primary/80">© {new Date().getFullYear()} D-RadiographIQ. Empowering Indonesian healthcare with open source teleradiology.</div>
+          <div className="text-sm text-on-primary/80">© {new Date().getFullYear()} D-RadiographIQ in Collaboration with dgDev. Empowering Indonesian healthcare with open source teleradiology.</div>
 
           {/* Blok 3: Ikon Sosial (ditambahkan di bawah) */}
           {/* <div className="flex items-center gap-3 pt-2">
