@@ -30,10 +30,10 @@ export default function CTASection() {
 
               <div>
                 <h3 className="text-lg font-semibold text-on-primary">Dwi Rochmayanti</h3>
-                <div className="text-sm text-slate-200">Founder & Developer</div>
+                <div className="text-sm text-slate-200">Founder & Lecturer</div>
               </div>
 
-              <p className="text-sm font-semibold text-slate-300 max-w-xl"> Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya" (HR. Ahmad dan ath-Thabrani).</p>
+              <p className="text-sm font-semibold text-slate-300 max-w-xl"> Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya (HR. Ahmad dan ath-Thabrani).</p>
 
               <div className="flex gap-3 mt-3">
                 <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
