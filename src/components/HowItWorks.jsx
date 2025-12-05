@@ -7,7 +7,7 @@ export default function HowItWorks() {
     {
       num: 1,
       title: "Upload Citra",
-      desc: "Unggah hasil foto rontgen ke sistem.",
+      desc: "Unggah hasil citra ke dalam sistem.",
       color: "bg-blue-600", // Warna dipertegas sedikit
     },
     {

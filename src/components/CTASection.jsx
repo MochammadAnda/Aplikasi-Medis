@@ -7,7 +7,7 @@ export default function CTASection() {
   return (
     <section className="w-full py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white" id="cta">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-bold text-white mb-10">DR</h2>
+        <h2 className="text-3xl font-bold text-white mb-10">Created by DR</h2>
 
         <div className="relative bg-slate-800/30 border border-slate-700/60 rounded-2xl p-6 md:p-10 backdrop-blur-sm">
           <div className="max-w-2xl mx-auto bg-transparent">

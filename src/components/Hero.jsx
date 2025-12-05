@@ -42,27 +42,25 @@ export default function Hero() {
       <div className="max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center gap-4 relative z-10">
         <div className="w-full flex flex-col items-center text-center gap-2 mb-2">
           {/* Tambahkan style ini di file CSS global atau di tag style sementara */}
-          <div className="mb-8">
-            {" "}
-            {/* Margin bawah diperbesar */}
-            <span
-              className="relative inline-block text-white text-xl md:text-2xl font-bold px-10 py-4 rounded-full border border-white/10 shadow-[0_0_30px_rgba(124,58,237,0.6)] overflow-hidden group"
-              style={{
-                background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
-              }}
-            >
-              {/* Teks Utama */}
-              {/* Menggunakan font-bold biasa agar sama dengan heading lain */}
-              <span className="relative z-10">D-RadiographIQ</span>
+          <div className="w-full flex flex-col items-center text-center gap-4 mb-2">
+            {/* Bagian Utama (Badge D-RadiographIQ) - Dibuat LEBIH BESAR */}
+            <div className="mb-4">
+              <span
+                className="relative inline-block text-white text-4xl md:text-6xl font-extrabold px-12 py-4 rounded-full border border-white/10 shadow-[0_0_30px_rgba(124,58,237,0.6)] overflow-hidden group"
+                style={{
+                  background: "linear-gradient(90deg, #2563eb 0%, #7c3aed 100%)",
+                }}
+              >
+                {/* Teks Utama */}
+                <span className="relative z-10">D-RadiographIQ</span>
 
-              {/* Layer Kilauan (Shimmer) */}
-              <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shimmer"></div>
-            </span>
+                {/* Layer Kilauan (Shimmer) */}
+                <div className="absolute top-0 left-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] animate-shimmer"></div>
+              </span>
+            </div>
           </div>
-
           {/* Headline */}
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Decision Support System for Thorax Image Acceptance</h1>
-
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Decision Support System for Thorax Image Acceptance</h1>
           {/* Subheadline dengan Typewriter */}
           <div className="text-xl mb-4 md:text-xl mb-6 text-blue-200 flex items-center justify-center h-28 md:h-20" style={{ maxWidth: "750px" }}>
             <p>
@@ -73,7 +71,6 @@ export default function Hero() {
               <Cursor cursorStyle="|" cursorColor="#bfdbfe" />
             </p>
           </div>
-
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
