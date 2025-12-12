@@ -33,16 +33,16 @@ export default function CTASection() {
               <p className="text-sm font-semibold text-slate-300 max-w-xl"> Sebaik-baik manusia adalah yang paling bermanfaat bagi manusia lainnya (HR. Ahmad dan ath-Thabrani).</p>
 
               <div className="flex gap-3 mt-3">
-                <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
+                <a href="https://www.linkedin.com/in/dwi-rochmayanti-9490323a/" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M22 12.07C22 6 17.52 1.5 11.5 1.5S1 6 1 12.07c0 5 3.66 9.17 8.44 9.93v-7.03H7.9v-2.9h1.55V9.88c0-1.53.9-2.38 2.28-2.38.66 0 1.35.12 1.35.12v1.49h-.77c-.76 0-1 .48-1 0v-1.49h1.7l-.27 2.9h-1.43V22c4.78-.76 8.44-4.93 8.44-9.93z" />
+                    <path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.48 1s2.5 1.12 2.5 2.5zM.22 8h4.52v14H.22V8zM8.5 8h4.33v1.92h.06c.6-1.14 2.06-2.34 4.24-2.34 4.53 0 5.37 2.98 5.37 6.85V22h-4.52v-6.73c0-1.6-.03-3.65-2.22-3.65-2.22 0-2.56 1.73-2.56 3.53V22H8.5V8z" />
                   </svg>
                   LinkedIn
                 </a>
 
-                <a href="#" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
+                <a href="https://instagram.com/rochmayantidwi" className="inline-flex items-center gap-2 px-3 py-2 bg-slate-700/60 text-slate-200 rounded-md text-sm border border-slate-600 hover:bg-slate-700">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.07 1.85.49 2.28.82.5.37.86.82 1.24 1.5.36.66.49 1.33.56 2.24.08 1.04.08 1.44.08 4.27s0 3.23-.08 4.27c-.07.91-.2 1.58-.56 2.24-.38.68-.74 1.13-1.24 1.5-.43.33-1.06.75-2.28.82-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.07-1.85-.49-2.28-.82-.5-.37-.86-.82-1.24-1.5-.36-.66-.49-1.33-.56-2.24C2 16.7 2 16.3 2 13.46s0-3.23.08-4.27c.07-.91.2-1.58.56-2.24.38-.68.74-1.13 1.24-1.5.43-.33 1.06-.75 2.28-.82C6.4 2.2 6.8 2.2 10 2.2h2z" />
+                    <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3.5A4.5 4.5 0 0 0 7.5 12 4.5 4.5 0 0 0 12 16.5 4.5 4.5 0 0 0 16.5 12 4.5 4.5 0 0 0 12 7.5zm0 2A2.5 2.5 0 0 1 14.5 12 2.5 2.5 0 0 1 12 14.5 2.5 2.5 0 0 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm4-3.25c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" />
                   </svg>
                   Instagram
                 </a>
