@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
 
           {/* Blok 2: Copyright */}
-          <div className="text-sm text-on-primary/80">© {new Date().getFullYear()} D-RadiographIQ in Collaboration with Yunanto Biantoro and dgDev. Empowering Indonesian healthcare with open source teleradiology.</div>
+          <div className="text-sm text-on-primary/80">© {new Date().getFullYear()} D-RadiographIQ in Collaboration with Yunanto Biantoro and dgDev.</div>
         </div>
       </div>
     </footer>
